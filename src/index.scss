@@ -23,11 +23,13 @@
 @import url(./blocks/search/__range-container/search__range-container.scss);
 @import url(./blocks/search/__range-input/search__range-input.scss);
 @import url(./blocks/search/__range-line/search__range-line.scss);
-@import url(./blocks/search/__select/search__select.css);
+@import url(./blocks/search/__range-line/_dark/search__range-line_dark.scss);
 @import url(./blocks/search/__selectList/search__selectList.scss);
 @import url(./blocks/search/__delete/search__delete.css);
 @import url(./blocks/search/__delete-none/search__delete-none.css);
+@import url(./blocks/search/__select/search__select.scss);
 @import url(./blocks/search/__select/_dark/search__select_dark.scss);
+@import url(./blocks/search/__delete/_dark/search__delete_dark.scss);
 @import url(./blocks/pagination/pagination.scss);
 @import url(./blocks/pagination/_dark/pagination_dark.scss);
 @import url(./blocks/pagination/pagination-module.scss);

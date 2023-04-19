@@ -4,6 +4,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function Card({ card, isDarkTheme, _filter, authors, locations }) {
   const currentUser = React.useContext(CurrentUserContext);
   const cardThemeClassName = `place ${isDarkTheme ? "place_dark" : ""}`;
+  
   const [isHovering, setIsHovering] = React.useState(false);
   const handleMouseOver = () => {
     setIsHovering(true);

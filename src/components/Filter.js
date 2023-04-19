@@ -15,10 +15,13 @@ function Filter(props) {
   }`;
   function filterDeleteButtonClassName(boolean) {
     return `search__delete ${boolean ? "" : "search__delete-none"} ${
-      props.isDarkTheme ? "search__select_dark" : ""
+      props.isDarkTheme ? "search__delete_dark" : ""
     }`;
   }
-
+  const selectThemeLineClassName = `search__range-line ${
+    props.isDarkTheme ? "search__range-line_dark" : ""
+  }`;
+  
   function _handleSelectChange(list, value, anyObjectField) {
     props.handleFieldFilter(
       anyObjectField,
@@ -117,7 +120,7 @@ function Filter(props) {
               onChange={handleInputCreatedChange}
               value={valueCreatedFrom}
             />
-            <div className="search__range-line"></div>
+            <div className={selectThemeLineClassName}></div>
             <input
               className="search__range-input"
               type="number"
