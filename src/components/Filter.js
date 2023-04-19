@@ -1,31 +1,43 @@
 import React from "react";
 import { Input, Range, Select } from "fwt-internship-uikit";
-// import { Range } from "./Range";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function Filter(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const [valueAuthor, setValuetAuthor] = React.useState("Author");
   const [valueLocation, setValuetLocation] = React.useState("Location");
+  const [isAuthorDelete, setIsAuthorDelete] = React.useState(false);
+  const [isLocationDelete, setIsLocationDelete] = React.useState(false);
   const [valueInput, setValuetInput] = React.useState("");
   const [valueCreatedFrom, setValuetCreatedFrom] = React.useState("");
   const [valueCreatedBefore, setValuetCreatedBefore] = React.useState("");
   const selectThemeClassName = `search__select ${
     props.isDarkTheme ? "search__select_dark" : ""
   }`;
+  function filterDeleteButtonClassName(boolean) {
+    return `search__delete ${boolean ? "" : "search__delete-none"} ${
+      props.isDarkTheme ? "search__select_dark" : ""
+    }`;
+  }
+
   function _handleSelectChange(list, value, anyObjectField) {
-    props.handleFieldFilter(anyObjectField, props._filter(list, value, "name", "id"));
+    props.handleFieldFilter(
+      anyObjectField,
+      props._filter(list, value, "name", "id")
+    );
   }
 
   function handleSelectAuthorChange(value) {
     setValuetAuthor(value);
+    setIsAuthorDelete(true);
     _handleSelectChange(props.authors, value, "authorId");
   }
 
-  function handleSelecttLocationChange(value) {
+  function handleSelectLocationChange(value) {
     setValuetLocation(value);
+    setIsLocationDelete(true);
     _handleSelectChange(props.locations, value, "locationId");
   }
-  function handleCreatedChange() {}
+
   function handleInputChange(e) {
     setValuetInput(e.target.value);
     props.handleFieldFilter("q", e.target.value);
@@ -41,6 +53,17 @@ function Filter(props) {
     }
     console.log(e.target.value);
   }
+  function handleFilterAuthorDelete() {
+    setValuetAuthor("Author");
+    setIsAuthorDelete(false);
+    props.handleFieldFilter("authorId", "");
+  }
+  function handleFilterLocationDelete() {
+    setValuetLocation("Location");
+    setIsLocationDelete(false);
+    props.handleFieldFilter("locationId", "");
+  }
+  function handleCreatedChange() {}
   return (
     <section className="search">
       <Input
@@ -49,20 +72,36 @@ function Filter(props) {
         placeholder="Name"
         onChange={handleInputChange}
       />
-      <Select
-        className={selectThemeClassName}
-        isDarkTheme={props.isDarkTheme}
-        value={valueAuthor}
-        options={props.authors}
-        onChange={handleSelectAuthorChange}
-      />
-      <Select
-        className={selectThemeClassName}
-        isDarkTheme={props.isDarkTheme}
-        value={valueLocation}
-        options={props.locations}
-        onChange={handleSelecttLocationChange}
-      />
+      <div className="search__selectList">
+        <Select
+          className={selectThemeClassName}
+          isDarkTheme={props.isDarkTheme}
+          value={valueAuthor}
+          options={props.authors}
+          onChange={handleSelectAuthorChange}
+        />
+        <button
+          className={filterDeleteButtonClassName(isAuthorDelete)}
+          type="button"
+          aria-label="delete"
+          onClick={handleFilterAuthorDelete}
+        />
+      </div>
+      <div className="search__selectList">
+        <Select
+          className={selectThemeClassName}
+          isDarkTheme={props.isDarkTheme}
+          value={valueLocation}
+          options={props.locations}
+          onChange={handleSelectLocationChange}
+        />
+        <button
+          className={filterDeleteButtonClassName(isLocationDelete)}
+          type="button"
+          aria-label="delete"
+          onClick={handleFilterLocationDelete}
+        />
+      </div>
       <Range
         className={selectThemeClassName}
         isDarkTheme={props.isDarkTheme}

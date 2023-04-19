@@ -18,13 +18,16 @@
 @import url(./blocks/search/search.css);
 @import url(./blocks/search/__select/search__select-Select-module.scss);
 @import url(./blocks/search/__select/search__select-SimpleBar.scss);
-@import url(./blocks/search/__select/_dark/search__select_dark.scss);
 @import url(./blocks/search/__input-name/search__input-name.scss);
 @import url(./blocks/search/__range/search__range-range.module.scss);
 @import url(./blocks/search/__range-container/search__range-container.scss);
 @import url(./blocks/search/__range-input/search__range-input.scss);
 @import url(./blocks/search/__range-line/search__range-line.scss);
 @import url(./blocks/search/__select/search__select.css);
+@import url(./blocks/search/__selectList/search__selectList.scss);
+@import url(./blocks/search/__delete/search__delete.css);
+@import url(./blocks/search/__delete-none/search__delete-none.css);
+@import url(./blocks/search/__select/_dark/search__select_dark.scss);
 @import url(./blocks/pagination/pagination.scss);
 @import url(./blocks/pagination/_dark/pagination_dark.scss);
 @import url(./blocks/pagination/pagination-module.scss);
