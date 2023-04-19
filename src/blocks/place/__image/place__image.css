@@ -1,7 +1,7 @@
 .place__image {
     background-position: center;
     background-size: cover;
-    width: 282px;
-    height: 282px;
-    border-radius: 10px 10px 0px 0px;
+    width: 360px;
+    height: 275px;
+    border-radius: 20px;
 }

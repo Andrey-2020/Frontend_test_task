@@ -9,6 +9,9 @@ function Filter(props) {
   const [valueInput, setValuetInput] = React.useState("");
   const [valueCreatedFrom, setValuetCreatedFrom] = React.useState("");
   const [valueCreatedBefore, setValuetCreatedBefore] = React.useState("");
+  const selectThemeClassName = `search__select ${
+    props.isDarkTheme ? "search__select_dark" : ""
+  }`;
   function _handleSelectChange(list, value, anyObjectField) {
     let filter = list.filter((item) => {
       if (item["name"] === value) {
@@ -17,6 +20,7 @@ function Filter(props) {
     });
     props.handleFieldFilter(anyObjectField, filter[0]["id"]);
   }
+
   function handleSelectAuthorChange(value) {
     setValuetAuthor(value);
     _handleSelectChange(props.authors, value, "authorId");
@@ -26,8 +30,7 @@ function Filter(props) {
     setValuetLocation(value);
     _handleSelectChange(props.locations, value, "locationId");
   }
-  function handleCreatedChange() {
-  }
+  function handleCreatedChange() {}
   function handleInputChange(e) {
     setValuetInput(e.target.value);
     props.handleFieldFilter("q", e.target.value);
@@ -41,33 +44,33 @@ function Filter(props) {
       setValuetCreatedBefore(e.target.value);
       props.handleFieldFilter("created_lte", e.target.value);
     }
-    console.log(e.target.value)
+    console.log(e.target.value);
   }
   return (
     <section className="search">
       <Input
-        className={"search__select"}
-        isDarkTheme={true}
+        className={selectThemeClassName}
+        isDarkTheme={props.isDarkTheme}
         placeholder="Name"
         onChange={handleInputChange}
       />
       <Select
-        className={"search__select"}
-        isDarkTheme={true}
+        className={selectThemeClassName}
+        isDarkTheme={props.isDarkTheme}
         value={valueAuthor}
         options={props.authors}
         onChange={handleSelectAuthorChange}
       />
       <Select
-        className={"search__select"}
-        isDarkTheme={true}
+        className={selectThemeClassName}
+        isDarkTheme={props.isDarkTheme}
         value={valueLocation}
         options={props.locations}
         onChange={handleSelecttLocationChange}
       />
       <Range
-        className={"search__select"}
-        isDarkTheme={true}
+        className={selectThemeClassName}
+        isDarkTheme={props.isDarkTheme}
         children={
           <div className="search__range-container">
             <input

@@ -3,18 +3,25 @@ import Card from "./Card";
 import Filter from "./Filter";
 import { Pagination } from "fwt-internship-uikit";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-function Main(props) {
+function Main({
+  isDarkTheme,
+  cards,
+  authors,
+  locations,
+  setCreated,
+  parameters,
+  setParameters,
+  handleCardsFilter,
+  pagesAmount,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
+  const paginationThemeClassName = (
+    `pagination ${isDarkTheme ? 'pagination_dark' : ''}`
+);
   function _handleFieldFilter(fieldName, value) {
-    let parameters = Object.assign(props.parameters);
-    // if (typeof fieldName === "object" && fieldName.length == 2) {
-    //   parameters[fieldName[0]] = value[0];
-    //   parameters[fieldName[1]] = value[1];
-    // } else {
-    //   parameters[fieldName] = value;
-    // }
-    parameters[fieldName] = value;
-    props.handleCardsFilter(parameters);
+    let newParameters = Object.assign(parameters);
+    newParameters[fieldName] = value;
+    handleCardsFilter(newParameters);
   }
   function handlePageChange(currentPage) {
     _handleFieldFilter("_page", currentPage);
@@ -22,26 +29,27 @@ function Main(props) {
   return (
     <main>
       <Filter
-        authors={props.authors}
-        locations={props.locations}
-        setCreated={props.setCreated}
-        parameters={props.parameters}
-        setParameters={props.setParameters}
+        authors={authors}
+        locations={locations}
+        setCreated={setCreated}
+        parameters={parameters}
+        setParameters={setParameters}
         handleFieldFilter={_handleFieldFilter}
+        isDarkTheme={isDarkTheme}
       />
       <section>
         <ul className="places">
-          {props.cards.map((card) => (
-            <Card card={card} key={card.id} />
+          {cards.map((card) => (
+            <Card card={card} key={card.id} isDarkTheme={isDarkTheme}/>
           ))}
         </ul>
       </section>
-      <div className="pager" role="navigation">
+      <div className={paginationThemeClassName} role="navigation">
         <Pagination
-          className={"pager__content"}
-          pagesAmount={props.pagesAmount}
-          currentPage={props.parameters["_page"]}
-          isDarkTheme={true}
+          className={"pagination__content"}
+          pagesAmount={pagesAmount}
+          currentPage={parameters["_page"]}
+          isDarkTheme={isDarkTheme}
           onChange={handlePageChange}
         />
       </div>

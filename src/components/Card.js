@@ -1,16 +1,14 @@
 import React from "react";
 import { options } from "../utils/constant";
-import api from "../utils/api";
-// import remove from '../images/Delete.svg';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-function Card({ card, onCardClick, onCardLike, onDeleteClick }) {
+function Card({ card, isDarkTheme, onCardLike, onDeleteClick }) {
   const currentUser = React.useContext(CurrentUserContext);
-
+  const cardThemeClassName = `place ${isDarkTheme ? "place_dark" : ""}`;
   return (
-    <li className="place">
-      
+    <li className={cardThemeClassName}>
       <img
         className="place__image"
+        // style={{backgroundImage: 'url('+ `${options.url}${card.imageUrl}`+')'}}
         src={`${options.url}${card.imageUrl}`}
         onError={(event) => {
           console.log(
@@ -21,13 +19,8 @@ function Card({ card, onCardClick, onCardLike, onDeleteClick }) {
         }}
         alt={`Картина ${card.name}`}
       />
-      {/* <img className={cardDeleteButtonClassName} alt="Удалить" onClick={handleDeleteClick} /> */}
       <div className="place__info">
         <h2 className="place__title">{card.name}</h2>
-        {/* <div className="place__like-container">
-                    <button className={cardLikeButtonClassName} type="button" aria-label="like" onClick={handleLikeClick} ></button>
-                    <div className="place__number-of-like">{card.likes.length}</div>
-                </div> */}
       </div>
     </li>
   );

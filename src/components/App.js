@@ -1,8 +1,6 @@
 import React from "react";
 import Header from "./Header";
 import Main from "./Main";
-import Footer from "./Footer";
-import Filter from "./Filter";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/api";
 
@@ -27,7 +25,11 @@ function App() {
   const [locations, setLocations] = React.useState([]);
   const [created, setCreated] = React.useState([]);
   const [pagesAmount, setPagesAmount] = React.useState([]);
-  const [parameters, setParameters] = React.useState({ _page: 1, _limit: 10 });
+  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+  const [parameters, setParameters] = React.useState({ _page: 1, _limit: 12 });
+  const rootThemeClassName = (
+    `root ${isDarkTheme ? 'root_dark' : ''}`
+);
 
   function handleCardsFilter(result) {
     let data = {};
@@ -72,10 +74,11 @@ function App() {
       });
   }, []);
   return (
-    <div className="root">
+    <div className={rootThemeClassName}>
       <CurrentUserContext.Provider value={currentUser}>
-        <Header />
+        <Header isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
         <Main
+          isDarkTheme={isDarkTheme}
           cards={cards}
           authors={authors}
           locations={locations}
@@ -84,40 +87,7 @@ function App() {
           setParameters={setParameters}
           handleCardsFilter={handleCardsFilter}
           pagesAmount={pagesAmount}
-          // onEditProfile={handleEditProfileClick}
-          // onAddPlace={handleAddPlaceClick}
-          // onEditAvatar={handleEditAvatarClick}
-          // onCardClick={handleCardClick}
-          // onCardLike={handleCardLike}
-          // onDeleteClick={handleConfirmDeleteClick}
         />
-        {/* <Footer /> */}
-        {/* <EditProfilePopup
-          // isOpen={isEditProfilePopupOpen}
-          // onClose={closeAllPopups}
-          // onUpdateUser={handleUpdateUser}
-        /> */}
-        {/* <AddPlacePopup
-          // isOpen={isAddPlacePopupOpen}
-          // onClose={closeAllPopups}
-          // buttonText={"Создать"}
-          // onAddCard={handleAddCard}
-        /> */}
-        {/* <PopupWithConfirm
-          isOpen={isConfirmPopupOpen}
-          onClose={closeAllPopups}
-          onDeleteCard={handleCardDelete}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
-        <ImagePopup
-          card={selectedCard}
-          isOpen={isEditImagePopupOpen}
-          onClose={closeAllPopups}
-        /> */}
       </CurrentUserContext.Provider>
     </div>
   );
