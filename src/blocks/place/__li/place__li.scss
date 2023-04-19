@@ -1,0 +1,11 @@
+.place__li {
+  list-style-type: none;
+  margin-bottom: 5px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 20px;
+}
+.place__li:last-child {
+  margin-bottom: 0;
+}

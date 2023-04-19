@@ -13,12 +13,7 @@ function Filter(props) {
     props.isDarkTheme ? "search__select_dark" : ""
   }`;
   function _handleSelectChange(list, value, anyObjectField) {
-    let filter = list.filter((item) => {
-      if (item["name"] === value) {
-        return item.id;
-      }
-    });
-    props.handleFieldFilter(anyObjectField, filter[0]["id"]);
+    props.handleFieldFilter(anyObjectField, props._filter(list, value, "name", "id"));
   }
 
   function handleSelectAuthorChange(value) {

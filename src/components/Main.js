@@ -15,9 +15,9 @@ function Main({
   pagesAmount,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
-  const paginationThemeClassName = (
-    `pagination ${isDarkTheme ? 'pagination_dark' : ''}`
-);
+  const paginationThemeClassName = `pagination ${
+    isDarkTheme ? "pagination_dark" : ""
+  }`;
   function _handleFieldFilter(fieldName, value) {
     let newParameters = Object.assign(parameters);
     newParameters[fieldName] = value;
@@ -26,6 +26,16 @@ function Main({
   function handlePageChange(currentPage) {
     _handleFieldFilter("_page", currentPage);
   }
+
+  function _filter(list, value, anyObjectField, returnField) {
+    let filter = list.filter((item) => {
+      if (item[anyObjectField] === value) {
+        return item.id;
+      }
+    });
+    return filter[0][returnField];
+  }
+
   return (
     <main>
       <Filter
@@ -36,11 +46,19 @@ function Main({
         setParameters={setParameters}
         handleFieldFilter={_handleFieldFilter}
         isDarkTheme={isDarkTheme}
+        _filter={_filter}
       />
       <section>
         <ul className="places">
           {cards.map((card) => (
-            <Card card={card} key={card.id} isDarkTheme={isDarkTheme}/>
+            <Card
+              card={card}
+              key={card.id}
+              isDarkTheme={isDarkTheme}
+              authors={authors}
+              _filter={_filter}
+              locations={locations}
+            />
           ))}
         </ul>
       </section>

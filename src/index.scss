@@ -7,9 +7,13 @@
 @import url(./blocks/logo/logo.css);
 @import url(./blocks/places/places.css);
 @import url(./blocks/place/place.css);
+@import url(./blocks/place/__li/place__li.scss);
+@import url(./blocks/place/__span-accent/place__span-accent.scss);
 @import url(./blocks/place/_dark/place_dark.scss);
 @import url(./blocks/place/__image/place__image.css);
 @import url(./blocks/place/__info/place__info.css);
+@import url(./blocks/place/__info/_hover/place__info_hover.scss);
+@import url(./blocks/place/__info-container/place__info-container.scss);
 @import url(./blocks/place/__title/place__title.css);
 @import url(./blocks/search/search.css);
 @import url(./blocks/search/__select/search__select-Select-module.scss);
