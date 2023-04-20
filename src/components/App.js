@@ -26,7 +26,6 @@ function App() {
     });
     setParameters(data);
   }
-
   React.useEffect(() => {
     Promise.all([
       api.getCardTasks(parameters),

@@ -15,9 +15,10 @@
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 768px) and (max-width: 1023.5px) {
   .pagination {
     width: 91.2vw;
+    margin: 35px auto 0 auto;
     padding-bottom: 54px;
   }
 }
@@ -25,5 +26,6 @@
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .pagination {
     width: 87.5vw;
+    margin: 30px auto 0 auto;
   }
 }

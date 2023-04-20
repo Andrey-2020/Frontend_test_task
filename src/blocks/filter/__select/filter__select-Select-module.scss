@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: flex-start;
   width: 265px;
-  height: 46px;
+  height: 45px;
   border-radius: 8px;
   border: 1px solid #000000;
   border-bottom: 1px solid #000000;
@@ -96,13 +96,14 @@
 .Arrow__dark{
   fill: rgba(255, 255, 255, 0.3);
 }
+
 @media screen and (min-width: 1024px) and (max-width: 1365px) {
   .Select {
     width: 220px;
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 768px) and (max-width: 1023.5px) {
   .Select {
     width: 160px;
   }
