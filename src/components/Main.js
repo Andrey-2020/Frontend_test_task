@@ -34,6 +34,7 @@ function Main({
     }
     handleCardsFilter(newParameters);
   }
+
   function handlePageChange(currentPage) {
     _handleFieldFilter("_page", currentPage, false, true);
   }

@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 1120px;
+  width: 82vw;
+  max-width: 1400px;
   margin: 0 auto 0 auto;
   padding-top: 35px;
   margin-bottom: 35px;
@@ -20,17 +21,21 @@
 }
 @media screen and (min-width: 1024px) and (max-width: 1365px) {
   .header {
-    width: 940px;
-    // &__logo {
-    //   // width: 64px;
-    //   // height: 64px;
-    //   // object-fit: fill;
-    // }
+    width: 91.8vw;
   }
 }
-@media screen and (min-width: 320px) and (max-width: 880px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
   .header {
-    padding-top: 28px;
-    width: 100%;
+    width: 91.2vw;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .header {
+    width: 87.5vw;
+    &__theme {
+      width: 22px;
+      height: 22px;
+    }
   }
 }

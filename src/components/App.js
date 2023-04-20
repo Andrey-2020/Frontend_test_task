@@ -35,7 +35,6 @@ function App() {
       ),
     ])
       .then(([cards, pages]) => {
-        console.log(cards);
         setCards(cards);
         setPagesAmount(Math.ceil(pages.length / parameters["_limit"]));
       })

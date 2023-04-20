@@ -32,7 +32,7 @@
     color: #000000;
   }
   &__info_hover {
-    height: 50%;
+    height: 52.7%;
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
@@ -77,6 +77,23 @@
     &__image {
       width: 300px;
       height: 230px;
+    }
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .place {
+    &__image {
+      width: 340px;
+      height: 249px;
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .place {
+    &__image {
+      width: 280px;
+      height: 205px;
     }
   }
 }
