@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Тестовое задание Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Данный проект представляет собой главную страницу со сайта списком картин. Интегрирован с API. Реализован в рамках тестового задания на позицию стажера.
 
-## Available Scripts
+Ссылка на GitHub Pages: https://andrey-2020.github.io/Frontend_test_task/
+## Технологии
+- React JS. Использовал функциональные компоненты и хуки состояния, а также хуки эффекта с зависимостями. 
+- Для реализации ajax-запроса использовал fetch в сочетании с URLSearchParams.toString. На вход подавал словарь с полями запроса. Этот словарь использовал в качестве зависимости в хуке эффека React.useEffect. React сам знает о том, когда эффект нужно перезапустить и получить с помощью ajax-запроса новый набор отфильтрованных картин.
+- Для селектов и пагинации использовал ui библиотеку fwt-internship-uikit.
+- Для удобного условного объединения имен классов вместе использовал утилиту classnames.
+- Использовал препроцессоры для стилей.
+### Проблемы, с которыми я столкнулся
+- Запрос для получения изображения для тега <img src={`${options.url}${card.imageUrl}`}/> возвращает ошибку ERR_CONTENT_LENGTH_MISMATCH 200 (OK) примерно в 7 случаях из 10. Из-за чего мне пришлось сделать циклические запросы с помощью атрибута onError тега img. Понимаю, что это плохая практика, но выбора нет. Смотреть на белые квадраты смысла нет. 
+Image (https://test-front.framework.team/images/The_sun.jpeg)
+- В макете не изображен случай длинного текста и кнопки удаления фильтра. Это на том участке где с текстом National Museum of Art, Architect... просят отступ в 10px от трея, но почему-то на этом селекторе нет кнопки сброса фильтра. Помимо этого макет содержит ряд незначительных противоречий. Не описано как должна вести себя вертска в интервале между фиксированными значениями. Реализовал спорные моменты на своё усмотрение.
+- Библиотека fwt-internship-uikit не очень удобна для использования, поэтому мне пришлось изрядно повозиться для её применения.
+- API не возвращает сколько всего страниц картин имеется для данного запроса. Пришлось делать по два запроса вместо одного.
 
-In the project directory, you can run:
+### Как запустить проект:
+Для запуска проекта необходимо клонировать репозиторий https://github.com/Andrey-2020/Frontend_test_task.git
 
+В дирректории проекта запустить команду для установки всех зависимостей
+### `npm install` 
+
+После чего можно запустить программу:
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Автор: Медведев А.
