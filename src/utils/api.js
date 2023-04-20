@@ -38,9 +38,6 @@ class Api {
       headers: this.headers,
     }).then(this._checkResponse);
   }
-  getImagesTasks(urlImage) {
-    return fetch(`${this.url}${urlImage}`).then(this._checkResponse);
-  }
 }
 const api = new Api(options);
 export default api;

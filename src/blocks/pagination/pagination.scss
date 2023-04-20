@@ -3,4 +3,13 @@
   margin: 40px auto 0 auto;
   padding-bottom: 97px;
   text-transform: uppercase;
+  &--dark {
+    background: #000000;
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1365px) {
+  .pagination {
+    width: 940px;
+    padding-bottom: 62px;
+  }
 }

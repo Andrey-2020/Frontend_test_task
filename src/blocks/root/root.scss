@@ -1,9 +1,13 @@
 .root {
   margin: 0 auto;
-  /* max-width: 1280px; */
   background-color: #ffffff;
   font-family: "Roboto", "Arial ", sans-serif;
   color: #000000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  &--dark {
+    background-color: #000000;
+    height: 100%;
+    color: #ffffff;
+  }
 }

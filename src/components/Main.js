@@ -1,30 +1,41 @@
 import React from "react";
 import Card from "./Card";
 import Filter from "./Filter";
-import { Pagination } from "fwt-internship-uikit";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import Paginator from "./Paginator";
+import classNames from "classnames/bind";
+import * as styles from "../blocks/places/places.scss";
 function Main({
   isDarkTheme,
   cards,
   authors,
   locations,
-  setCreated,
   parameters,
-  setParameters,
   handleCardsFilter,
   pagesAmount,
 }) {
-  const currentUser = React.useContext(CurrentUserContext);
-  const paginationThemeClassName = `pagination ${
-    isDarkTheme ? "pagination_dark" : ""
-  }`;
-  function _handleFieldFilter(fieldName, value) {
+  const cx = classNames.bind(styles);
+
+  function _handleFieldFilter(
+    fieldName,
+    value,
+    isMany = false,
+    isPaginator = false
+  ) {
     let newParameters = Object.assign(parameters);
-    newParameters[fieldName] = value;
+    if (!isPaginator) {
+      newParameters["_page"] = 1;
+    }
+    if (isMany) {
+      for (let i = 0; i < fieldName.length; i++) {
+        newParameters[fieldName[i]] = value[i];
+      }
+    } else {
+      newParameters[fieldName] = value;
+    }
     handleCardsFilter(newParameters);
   }
   function handlePageChange(currentPage) {
-    _handleFieldFilter("_page", currentPage);
+    _handleFieldFilter("_page", currentPage, false, true);
   }
 
   function _filter(list, value, anyObjectField, returnField) {
@@ -32,6 +43,7 @@ function Main({
       if (item[anyObjectField] === value) {
         return item.id;
       }
+      return false;
     });
     return filter[0][returnField];
   }
@@ -41,15 +53,12 @@ function Main({
       <Filter
         authors={authors}
         locations={locations}
-        setCreated={setCreated}
-        parameters={parameters}
-        setParameters={setParameters}
         handleFieldFilter={_handleFieldFilter}
         isDarkTheme={isDarkTheme}
         _filter={_filter}
       />
       <section>
-        <ul className="places">
+        <ul className={cx("places")}>
           {cards.map((card) => (
             <Card
               card={card}
@@ -62,15 +71,12 @@ function Main({
           ))}
         </ul>
       </section>
-      <div className={paginationThemeClassName} role="navigation">
-        <Pagination
-          className={"pagination__content"}
-          pagesAmount={pagesAmount}
-          currentPage={parameters["_page"]}
-          isDarkTheme={isDarkTheme}
-          onChange={handlePageChange}
-        />
-      </div>
+      <Paginator
+        pagesAmount={pagesAmount}
+        parameters={parameters}
+        isDarkTheme={isDarkTheme}
+        handlePageChange={handlePageChange}
+      />
     </main>
   );
 }

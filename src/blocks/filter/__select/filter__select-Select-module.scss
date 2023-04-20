@@ -21,9 +21,9 @@
     background: #000000;
   }
   &__title {
-    width: 220px;
+    width: 209px;
     word-break: break-all;
-    margin: 0 0 0 15px;
+    margin: 0 10px 0 15px;
     overflow: hidden;
     text-overflow: ellipsis;
     line-clamp: 3;
@@ -81,5 +81,11 @@
     right: 18px;
     float: right;
     fill: #b3b3b3;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1365px) {
+  .Select {
+    width: 220px;
   }
 }

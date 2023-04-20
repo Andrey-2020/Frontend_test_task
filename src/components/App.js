@@ -3,33 +3,21 @@ import Header from "./Header";
 import Main from "./Main";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/api";
+import classNames from "classnames/bind";
+import styles from "../blocks/root/root.scss";
 
 function App() {
-  // const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  // const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  // const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  // const [isEditImagePopupOpen, setIsEditImagePopupOpen] = React.useState(false);
-  // const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({
-    name: "",
-    link: "",
-  });
-  const [currentUser, setCurrentUser] = React.useState({
-    name: "",
-    about: "",
-    avatar: "",
-    _id: "",
-  });
+  const currentUser = React.useContext(CurrentUserContext);
+  const cx = classNames.bind(styles);
   const [cards, setCards] = React.useState([]);
   const [authors, setAuthors] = React.useState([]);
   const [locations, setLocations] = React.useState([]);
-  const [created, setCreated] = React.useState([]);
-  const [pagesAmount, setPagesAmount] = React.useState([]);
+  const [pagesAmount, setPagesAmount] = React.useState("");
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
   const [parameters, setParameters] = React.useState({ _page: 1, _limit: 12 });
-  const rootThemeClassName = (
-    `root ${isDarkTheme ? 'root_dark' : ''}`
-);
+  const rootThemeClassName = cx("root", {
+    "root--dark": isDarkTheme,
+  });
 
   function handleCardsFilter(result) {
     let data = {};
@@ -37,18 +25,6 @@ function App() {
       if (result[key]) data[key] = result[key];
     });
     setParameters(data);
-    console.log(data);
-    Promise.all([
-      api.getCardTasks(data),
-      api.getCardTasks(
-        [data].map(({ _page, _limit, ...otherParam }) => otherParam)[0]
-      ),
-    ])
-      .then(([newCard, pages]) => {
-        setCards(newCard);
-        setPagesAmount(Math.ceil(pages.length / parameters["_limit"]));
-      })
-      .catch((err) => console.log("Ошибка. Запрос не выполнен: ", err));
   }
 
   React.useEffect(() => {
@@ -57,13 +33,20 @@ function App() {
       api.getCardTasks(
         [parameters].map(({ _page, _limit, ...otherParam }) => otherParam)[0]
       ),
-      api.getAuthorTasks(),
-      api.getLocationsTasks(),
     ])
-      .then(([cards, pages, authors, locations]) => {
+      .then(([cards, pages]) => {
         console.log(cards);
         setCards(cards);
         setPagesAmount(Math.ceil(pages.length / parameters["_limit"]));
+      })
+      .catch((err) => {
+        console.log("Ошибка. Запрос не выполнен: ", err);
+      });
+  }, [parameters]);
+
+  React.useEffect(() => {
+    Promise.all([api.getAuthorTasks(), api.getLocationsTasks()])
+      .then(([authors, locations]) => {
         setAuthors(authors);
         setLocations(
           locations.map(({ id, location }) => ({ id, name: location }))
@@ -73,6 +56,7 @@ function App() {
         console.log("Ошибка. Запрос не выполнен: ", err);
       });
   }, []);
+
   return (
     <div className={rootThemeClassName}>
       <CurrentUserContext.Provider value={currentUser}>
@@ -82,9 +66,7 @@ function App() {
           cards={cards}
           authors={authors}
           locations={locations}
-          setCreated={setCreated}
           parameters={parameters}
-          setParameters={setParameters}
           handleCardsFilter={handleCardsFilter}
           pagesAmount={pagesAmount}
         />

@@ -1,0 +1,84 @@
+.filter {
+  font-family: "Roboto", "Arial ", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  width: 1120px;
+  max-height: 345px;
+  margin: 0 auto 0 auto;
+
+  &__selectList {
+    position: relative;
+    margin-right: 20px;
+    &:last-child {
+      margin: 0px;
+    }
+  }
+  &__select {
+    &--dark {
+      background-color: #000000;
+      color: #ffffff;
+    }
+  }
+  &__delete {
+    cursor: pointer;
+    position: absolute;
+    background-color: white;
+    background-image: url(../../images/delete.svg);
+    background-size: cover;
+    background-position: center;
+    outline: none;
+    border: 0;
+    top: 19px;
+    right: 38px;
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    &--dark {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    &--none {
+      display: none;
+    }
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  &__range-line {
+    width: 12px;
+    height: 0px;
+    border: 1px solid #000000;
+    margin: 0 10px 0 10px;
+    &--dark {
+      border: 1px solid #ffffff;
+    }
+  }
+  &__range-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__range-input {
+    width: 95px;
+    height: 45px;
+    background: #efefef;
+    border: 0;
+    border-radius: 8px;
+    padding: 0 0 0 15px;
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1365px) {
+  .filter {
+    width: 940px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 880px) {
+  .filter {
+    padding-top: 28px;
+    width: 100%;
+  }
+}
