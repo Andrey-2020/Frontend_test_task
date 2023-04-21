@@ -1,7 +1,7 @@
 import logo from "../images/logo.svg";
 import themeWhiteButton from "../images/buttonWhite.svg";
 import themeBlackButton from "../images/buttonBlack.svg";
-import classNames from 'classnames/bind';
+import classNames from "classnames/bind";
 import * as styles from "../blocks/header/header.scss";
 function Header({ isDarkTheme, setIsDarkTheme }) {
   const cx = classNames.bind(styles);

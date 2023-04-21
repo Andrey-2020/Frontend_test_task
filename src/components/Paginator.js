@@ -1,12 +1,7 @@
 import classNames from "classnames/bind";
 import * as styles from "../blocks/pagination/pagination.scss";
 import { Pagination } from "fwt-internship-uikit";
-function Paginator({
-  pagesAmount,
-  parameters,
-  isDarkTheme,
-  handlePageChange,
-}) {
+function Paginator({ pagesAmount, parameters, isDarkTheme, handlePageChange }) {
   const cx = classNames.bind(styles);
   const paginationThemeClassName = cx("pagination", {
     "pagination--dark": isDarkTheme,

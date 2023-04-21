@@ -16,8 +16,8 @@
   &--dark {
     color: white;
     background: #000000;
-    border: 1px solid #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
+    border: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     background-color: #000000;
     color: #ffffff;
   }
@@ -50,13 +50,13 @@
     z-index: 1;
     background: white;
     border: 1px solid #000000;
-    border-top: 1px solid rgba(0, 0, 0, 0.3);;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
     &--open {
       border-radius: 0 0 8px 8px;
       max-height: 300px;
     }
     &--dark {
-      border: 1px solid #FFFFFF;
+      border: 1px solid #ffffff;
       border-top: 1px solid rgba(255, 255, 255, 0.3);
       background: #000000;
     }
@@ -90,10 +90,10 @@
     display: flex;
     right: 18px;
     float: right;
-    fill: rgba(0, 0, 0, 0.3);;
+    fill: rgba(0, 0, 0, 0.3);
   }
 }
-.Arrow__dark{
+.Arrow__dark {
   fill: rgba(255, 255, 255, 0.3);
 }
 
