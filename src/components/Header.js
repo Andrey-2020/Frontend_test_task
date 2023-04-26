@@ -1,24 +1,25 @@
+import React from "react";
 import logo from "../images/logo.svg";
 import themeWhiteButton from "../images/buttonWhite.svg";
 import themeBlackButton from "../images/buttonBlack.svg";
-import classNames from "classnames/bind";
-import * as styles from "../blocks/header/header.scss";
-function Header({ isDarkTheme, setIsDarkTheme }) {
-  const cx = classNames.bind(styles);
+import "../blocks/header/header.scss";
+import { CurrentThemeContext } from "../contexts/CurrentThemeContext";
+function Header({ setIsDarkTheme }) {
+  const currentIsDarkTheme = React.useContext(CurrentThemeContext);
   function handleThemeChange() {
     const body = document.querySelector("body");
-    !isDarkTheme
+    !currentIsDarkTheme
       ? body.setAttribute("style", "background-color: #000000;")
       : body.setAttribute("style", "background-color: #ffffff;");
-    setIsDarkTheme(!isDarkTheme);
+    setIsDarkTheme(!currentIsDarkTheme);
   }
 
   return (
-    <header className={cx("header")}>
-      <img className={cx("header__logo")} src={logo} alt="Логотип" />
+    <header className={"header"}>
+      <img className={"header__logo"} src={logo} alt="Логотип" />
       <img
-        className={cx("header__theme")}
-        src={isDarkTheme ? themeWhiteButton : themeBlackButton}
+        className={"header__theme"}
+        src={currentIsDarkTheme ? themeWhiteButton : themeBlackButton}
         alt="Смена темы"
         onClick={handleThemeChange}
       />

@@ -1,13 +1,12 @@
 import React from "react";
 import Header from "./Header";
 import Main from "./Main";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { CurrentThemeContext } from "../contexts/CurrentThemeContext";
 import api from "../utils/api";
 import classNames from "classnames/bind";
 import styles from "../blocks/root/root.scss";
 
 function App() {
-  const currentUser = React.useContext(CurrentUserContext);
   const cx = classNames.bind(styles);
   const [cards, setCards] = React.useState([]);
   const [authors, setAuthors] = React.useState([]);
@@ -26,6 +25,27 @@ function App() {
     });
     setParameters(data);
   }
+
+  React.useEffect(() => {
+    let isMounted = true;
+    Promise.all([api.getAuthorTasks(), api.getLocationsTasks()])
+      .then(([authorsList, locations]) => {
+        if (isMounted) {
+          setAuthors(authorsList);
+          setLocations(
+            locations.map(({ id, location }) => ({ id, name: location }))
+          );
+        }
+      })
+      .catch((err) => {
+        console.log("Ошибка. Запрос не выполнен: ", err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   React.useEffect(() => {
     Promise.all([
       api.getCardTasks(parameters),
@@ -33,8 +53,8 @@ function App() {
         [parameters].map(({ _page, _limit, ...otherParam }) => otherParam)[0]
       ),
     ])
-      .then(([cards, pages]) => {
-        setCards(cards);
+      .then(([cardsList, pages]) => {
+        setCards(cardsList);
         setPagesAmount(Math.ceil(pages.length / parameters["_limit"]));
       })
       .catch((err) => {
@@ -42,25 +62,11 @@ function App() {
       });
   }, [parameters]);
 
-  React.useEffect(() => {
-    Promise.all([api.getAuthorTasks(), api.getLocationsTasks()])
-      .then(([authors, locations]) => {
-        setAuthors(authors);
-        setLocations(
-          locations.map(({ id, location }) => ({ id, name: location }))
-        );
-      })
-      .catch((err) => {
-        console.log("Ошибка. Запрос не выполнен: ", err);
-      });
-  }, []);
-
   return (
     <div className={rootThemeClassName}>
-      <CurrentUserContext.Provider value={currentUser}>
-        <Header isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
+      <CurrentThemeContext.Provider value={isDarkTheme}>
+        <Header setIsDarkTheme={setIsDarkTheme} />
         <Main
-          isDarkTheme={isDarkTheme}
           cards={cards}
           authors={authors}
           locations={locations}
@@ -68,7 +74,7 @@ function App() {
           handleCardsFilter={handleCardsFilter}
           pagesAmount={pagesAmount}
         />
-      </CurrentUserContext.Provider>
+      </CurrentThemeContext.Provider>
     </div>
   );
 }

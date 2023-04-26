@@ -1,19 +1,22 @@
+import React from "react";
 import classNames from "classnames/bind";
 import * as styles from "../blocks/pagination/pagination.scss";
 import { Pagination } from "fwt-internship-uikit";
-function Paginator({ pagesAmount, parameters, isDarkTheme, handlePageChange }) {
+import { CurrentThemeContext } from "../contexts/CurrentThemeContext";
+function Paginator({ pagesAmount, parameters, handlePageChange }) {
   const cx = classNames.bind(styles);
+  const currentIsDarkTheme = React.useContext(CurrentThemeContext);
   const paginationThemeClassName = cx("pagination", {
-    "pagination--dark": isDarkTheme,
+    "pagination--dark": currentIsDarkTheme,
   });
 
   return (
     <section className={paginationThemeClassName} role="navigation">
       <Pagination
-        className={cx("pagination__content")}
+        className={"pagination__content"}
         pagesAmount={pagesAmount}
         currentPage={parameters["_page"]}
-        isDarkTheme={isDarkTheme}
+        isDarkTheme={currentIsDarkTheme}
         onChange={handlePageChange}
       />
     </section>

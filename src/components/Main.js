@@ -2,10 +2,8 @@ import React from "react";
 import Card from "./Card";
 import Filter from "./Filter";
 import Paginator from "./Paginator";
-import classNames from "classnames/bind";
-import * as styles from "../blocks/places/places.scss";
+import "../blocks/places/places.scss";
 function Main({
-  isDarkTheme,
   cards,
   authors,
   locations,
@@ -13,8 +11,6 @@ function Main({
   handleCardsFilter,
   pagesAmount,
 }) {
-  const cx = classNames.bind(styles);
-
   function _handleFieldFilter(
     fieldName,
     value,
@@ -39,34 +35,20 @@ function Main({
     _handleFieldFilter("_page", currentPage, false, true);
   }
 
-  function _filter(list, value, anyObjectField, returnField) {
-    let filter = list.filter((item) => {
-      if (item[anyObjectField] === value) {
-        return item.id;
-      }
-      return false;
-    });
-    return filter[0][returnField];
-  }
-
   return (
     <main>
       <Filter
         authors={authors}
         locations={locations}
         handleFieldFilter={_handleFieldFilter}
-        isDarkTheme={isDarkTheme}
-        _filter={_filter}
       />
       <section>
-        <ul className={cx("places")}>
+        <ul className={"places"}>
           {cards.map((card) => (
             <Card
               card={card}
               key={card.id}
-              isDarkTheme={isDarkTheme}
               authors={authors}
-              _filter={_filter}
               locations={locations}
             />
           ))}
@@ -75,7 +57,6 @@ function Main({
       <Paginator
         pagesAmount={pagesAmount}
         parameters={parameters}
-        isDarkTheme={isDarkTheme}
         handlePageChange={handlePageChange}
       />
     </main>

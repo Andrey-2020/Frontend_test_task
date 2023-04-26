@@ -1,15 +1,11 @@
 import React from "react";
 import { Input, Range, Select } from "fwt-internship-uikit";
+import { CurrentThemeContext } from "../contexts/CurrentThemeContext";
 import classNames from "classnames/bind";
 import * as styles from "../blocks/filter/filter.scss";
-function Filter({
-  authors,
-  locations,
-  handleFieldFilter,
-  isDarkTheme,
-  _filter,
-}) {
+function Filter({ authors, locations, handleFieldFilter }) {
   const cx = classNames.bind(styles);
+  const currentIsDarkTheme = React.useContext(CurrentThemeContext);
   const [valueAuthor, setValuetAuthor] = React.useState("Author");
   const [valueLocation, setValuetLocation] = React.useState("Location");
   const [isAuthorDelete, setIsAuthorDelete] = React.useState(false);
@@ -19,20 +15,22 @@ function Filter({
   const [valueCreatedFrom, setValuetCreatedFrom] = React.useState("");
   const [valueCreatedBefore, setValuetCreatedBefore] = React.useState("");
   const selectThemeClassName = cx("filter__select", {
-    "filter__select--dark": isDarkTheme,
+    "filter__select--dark": currentIsDarkTheme,
   });
   function filterDeleteButtonClassName(boolean) {
     return cx("filter__delete", {
       "filter__delete--none": !boolean,
-      "filter__delete--dark": isDarkTheme,
+      "filter__delete--dark": currentIsDarkTheme,
     });
   }
   const selectThemeLineClassName = cx("filter__range-line", {
-    "filter__range-line--dark": isDarkTheme,
+    "filter__range-line--dark": currentIsDarkTheme,
   });
 
   function _handleSelectChange(list, value, anyObjectField) {
-    handleFieldFilter(anyObjectField, _filter(list, value, "name", "id"));
+    let filter = list.filter((item) => item["name"] === value);
+    let set = filter[0]["id"];
+    handleFieldFilter(anyObjectField, set);
   }
 
   function handleSelectAuthorChange(value) {
@@ -86,20 +84,20 @@ function Filter({
   }
   function handleCreatedChange() {}
   return (
-    <section className={cx("filter")}>
-      <div className={cx("filter__selectList")}>
+    <section className={"filter"}>
+      <div className={"filter__selectList"}>
         <Input
           className={selectThemeClassName}
-          isDarkTheme={isDarkTheme}
+          isDarkTheme={currentIsDarkTheme}
           placeholder="Name"
           value={valueInput}
           onChange={handleInputChange}
         />
       </div>
-      <div className={cx("filter__selectList")}>
+      <div className={"filter__selectList"}>
         <Select
           className={selectThemeClassName}
-          isDarkTheme={isDarkTheme}
+          isDarkTheme={currentIsDarkTheme}
           value={valueAuthor}
           options={authors}
           onChange={handleSelectAuthorChange}
@@ -111,10 +109,10 @@ function Filter({
           onClick={handleFilterAuthorDelete}
         />
       </div>
-      <div className={cx("filter__selectList")}>
+      <div className={"filter__selectList"}>
         <Select
           className={selectThemeClassName}
-          isDarkTheme={isDarkTheme}
+          isDarkTheme={currentIsDarkTheme}
           value={valueLocation}
           options={locations}
           onChange={handleSelectLocationChange}
@@ -126,14 +124,14 @@ function Filter({
           onClick={handleFilterLocationDelete}
         />
       </div>
-      <div className={cx("filter__selectList")}>
+      <div className={"filter__selectList"}>
         <Range
           className={selectThemeClassName}
-          isDarkTheme={isDarkTheme}
+          isDarkTheme={currentIsDarkTheme}
           children={
-            <div className={cx("filter__range-container")}>
+            <div className={"filter__range-container"}>
               <input
-                className={cx("filter__range-input")}
+                className={"filter__range-input"}
                 type="number"
                 placeholder="from"
                 onInput={(e) => {
@@ -144,7 +142,7 @@ function Filter({
               />
               <div className={selectThemeLineClassName}></div>
               <input
-                className={cx("filter__range-input")}
+                className={"filter__range-input"}
                 type="number"
                 placeholder="before"
                 onInput={(e) => {

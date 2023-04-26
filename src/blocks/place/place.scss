@@ -32,10 +32,17 @@
     color: #000000;
   }
   &__info_hover {
+    display: none;
     height: 52.7%;
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
+  }
+  &:hover &__info {
+    display: none;
+  }
+  &:hover &__info_hover {
+    display: block;
   }
   &__title {
     width: 195px;
