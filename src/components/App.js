@@ -13,6 +13,7 @@ function App() {
   const [locations, setLocations] = React.useState([]);
   const [pagesAmount, setPagesAmount] = React.useState("");
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+  const [isMounted, setIsMounted] = React.useState(false);
   const [parameters, setParameters] = React.useState({ _page: 1, _limit: 12 });
   const rootThemeClassName = cx("root", {
     "root--dark": isDarkTheme,
@@ -27,23 +28,17 @@ function App() {
   }
 
   React.useEffect(() => {
-    let isMounted = true;
     Promise.all([api.getAuthorTasks(), api.getLocationsTasks()])
       .then(([authorsList, locations]) => {
-        if (isMounted) {
           setAuthors(authorsList);
           setLocations(
             locations.map(({ id, location }) => ({ id, name: location }))
           );
-        }
+          setIsMounted(true);
       })
       .catch((err) => {
         console.log("Ошибка. Запрос не выполнен: ", err);
       });
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   React.useEffect(() => {
@@ -67,6 +62,7 @@ function App() {
       <CurrentThemeContext.Provider value={isDarkTheme}>
         <Header setIsDarkTheme={setIsDarkTheme} />
         <Main
+          isMounted={isMounted}
           cards={cards}
           authors={authors}
           locations={locations}

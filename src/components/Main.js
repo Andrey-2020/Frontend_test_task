@@ -10,6 +10,7 @@ function Main({
   parameters,
   handleCardsFilter,
   pagesAmount,
+  isMounted,
 }) {
   function _handleFieldFilter(
     fieldName,
@@ -46,6 +47,7 @@ function Main({
         <ul className={"places"}>
           {cards.map((card) => (
             <Card
+              isMounted={isMounted}
               card={card}
               key={card.id}
               authors={authors}

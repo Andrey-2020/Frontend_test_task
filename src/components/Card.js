@@ -3,7 +3,7 @@ import { options } from "../utils/constant";
 import { CurrentThemeContext } from "../contexts/CurrentThemeContext";
 import classNames from "classnames/bind";
 import * as styles from "../blocks/place/place.scss";
-function Card({ card, authors, locations }) {
+function Card({ card, authors, locations, isMounted }) {
   const currentIsDarkTheme = React.useContext(CurrentThemeContext);
   const cx = classNames.bind(styles);
   const cardThemeClassName = cx("place", {
@@ -13,11 +13,13 @@ function Card({ card, authors, locations }) {
   const [location, setLocations] = React.useState("");
 
   React.useEffect(() => {
-    setAuthor(authors.filter((item) => item["id"] === card.authorId)[0].name);
-    setLocations(
-      locations.filter((item) => item["id"] === card.locationId)[0].name
-    );
-  }, [authors, locations, card]);
+    if (isMounted) {
+      setAuthor(authors.filter((item) => item["id"] === card.authorId)[0].name);
+      setLocations(
+        locations.filter((item) => item["id"] === card.locationId)[0].name
+      );
+    }
+  }, [authors, locations, card, isMounted]);
 
   return (
     <li className={cardThemeClassName}>
